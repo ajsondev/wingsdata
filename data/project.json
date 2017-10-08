@@ -1,65 +1,81 @@
 [
   {
+    "id": "bancor",
     "address": "0xd8049972c08868b8fe98f2d42dd56176a6e539e6",
     "name": "Bancor"
   },
   {
+    "id": "adex",
     "address": "0x7e0ddeed2c7d35f25cf311e942c00c8ce4c85933",
     "name": "AdEx"
   },
   {
+    "id": "coindash",
     "address": "0x3e89C64B26d9553825C22DDd4Ab3502E88387076",
     "name": "CoinDash"
   },
   {
+    "id": "act",
     "address": "0x87e7209f217d5e333b2b3436b8bcc91e60a7337e",
     "name": "ACT"
   },
   {
+    "id": "indorse",
     "address": "0xea64195984c9bbb81be0b97a12be6c911ab52514",
     "name": "Indorse"
   },
   {
+    "id": "stox",
     "address": "0x062E98f6E19479Ba460e3377B85386CFcC4F0475",
     "name": "STOX"
   },
   {
+    "id": "bitjob",
     "address": "0xE08b908457B677cA9bF1a66CF16333d2D32276e6",
     "name": "bitJob"
   },
   {
+    "id": "swarm",
     "address": "0x2e4F1157D1cb304DE11842D2587F57A0d3864c0c",
     "name": "SWARM"
   },
   {
+    "id": "domraider",
     "address": "0x614d90e7a305ae9d8b80de91dfd43341c0131515",
     "name": "DomRaider"
   },
   {
+    "id": "blackmoon",
     "address": "0xAc6727DBea4Ac6bA18Cfd25d823189C1e345DF35",
     "name": "Blackmoon"
   },
   {
+    "id": "gimli",
     "address": "0xca7c5053e41b0c9a73f4dd4095087bbeb55be14b",
     "name": "Gimli"
   },
   {
+    "id": "snip",
     "address": "0x8dcbef988d3095be1ff7d5c92b8ba946495e017c",
     "name": "Snip"
   },
   {
+    "id": "lockchain",
     "address": "0x065ed8DBcb74ba484d49112AEd4aa745750370b8",
     "name": "LockChain"
   },
   {
+    "id": "papyrus",
     "address": "0x9174b4C75F83D29D5C5C2b74f8c965ab23e3fB7b",
     "name": "Papyrus"
   },
   {
+    "id": "qvolta",
     "address": "0xb8D0a693A6B19334FCc1538Ed45Edc020d5C097f",
     "name": "Qvolta"
   },
   {
+    "id": "eloplay",
     "address": "0xc275B787669B9b51e7B4F856a0D00d40d170b344",
     "name": "Eloplay"
   }

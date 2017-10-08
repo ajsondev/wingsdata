@@ -1,9 +1,16 @@
 from pprint import pprint
-from util import load_projects
 
 from weightedstats import weighted_median
 
 from project.database import db
+from util import load_projects, load_forecast_data
+
+
+def format_number(val):
+    if val > 1000000:
+        return '%sm' % str(round(val / 1000000, 1)).rstrip('0').rstrip('.')
+    else:
+        return '%sk' % str(round(val / 1000, 1)).rstrip('0').rstrip('.')
 
 
 def main(**kwargs):
@@ -11,9 +18,8 @@ def main(**kwargs):
     for proj in load_projects():
         weights = []
         amounts = []
-        for cast in db.forecast.find({'project_addr': proj['address']}):
-            weights.append(int(cast['raw']['lockedAmount']) / ether)
-            amounts.append(int(cast['raw']['amount']) / ether)
+        for cast in load_forecast_data(proj['id']):
+            weights.append(int(cast['lockedAmount']) / ether)
+            amounts.append(int(cast['amount']) / ether)
         wmed = weighted_median(amounts, weights=weights)
-        wmed_str = str(round(wmed / 1000, 1)).rstrip('0').rstrip('.')
-        print('%s:%s' % (proj['name'], '%sk' % wmed_str))
+        print('%s:%s' % (proj['id'], format_number(wmed)))

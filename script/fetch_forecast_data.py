@@ -2,19 +2,18 @@ import json
 from urllib.request import urlopen
 import logging
 
-from util import load_projects
-from project.database import db
+from util import load_projects, get_forecast_data_path
 
 
-def fetch_forecast(addr):
-    db.forecast.remove({'project_addr': addr})
+def fetch_forecast(project_id, project_addr):
     offset = 0
+    forecast_list = []
     while True:
         print('Processing page #%d' % (offset // 10))
         url = (
             'https://api-experimental.wings.ai/api/%s'
             '/forecasting/forecasts?limit=10&offset=%d'
-            % (addr, offset)
+            % (project_addr, offset)
         )
         res = None
         for x in range(3):
@@ -27,16 +26,23 @@ def fetch_forecast(addr):
         if not res['data']:
             break
         for item in res['data']:
-            cast = {
-                'raw': item,
-                'project_addr': addr,
-            }
-            db.forecast.save(cast)
+            forecast_list.append(item)
         offset += 10
+    with open(get_forecast_data_path(project_id), 'w') as out:
+        out.write(json.dumps(forecast_list))
 
 
-def main(**kwargs):
+def setup_arg_parser(parser):
+    parser.add_argument('pid')
+
+
+def main(pid, **kwargs):
     projects = load_projects()
-    for proj in projects:
+    if pid == 'all':
+        pids = [x['id'] for x in projects]
+    else:
+        pids = pid.split(',')
+    for pid in pids:
+        proj = [x for x in projects if x['id'] == pid][0]
         print('Processing project %s' % proj['name'])
-        fetch_forecast(proj['address'])
+        fetch_forecast(proj['id'], proj['address'])
