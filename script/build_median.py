@@ -1,25 +1,17 @@
-from pprint import pprint
-
-from weightedstats import weighted_median
-
-from project.database import db
-from util import load_projects, load_forecast_data
-
-
-def format_number(val):
-    if val > 1000000:
-        return '%sm' % str(round(val / 1000000, 1)).rstrip('0').rstrip('.')
-    else:
-        return '%sk' % str(round(val / 1000, 1)).rstrip('0').rstrip('.')
+from util import (
+    load_projects, load_project_data, get_weighted_median_vote,
+    get_median_vote, format_number
+)
 
 
 def main(**kwargs):
-    ether = (10 ** 18)
+    print('project-id,weighted-median,lower-half-avg')
     for proj in load_projects():
-        weights = []
-        amounts = []
-        for cast in load_forecast_data(proj['id']):
-            weights.append(int(cast['lockedAmount']) / ether)
-            amounts.append(int(cast['amount']) / ether)
-        wmed = weighted_median(amounts, weights=weights)
-        print('%s:%s' % (proj['id'], format_number(wmed)))
+        data = load_project_data(proj['id'])
+        wmed_forecast = get_weighted_median_vote(data['votes'])
+        med_forecast = get_median_vote(data['votes'])
+        print(':'.join((
+            proj['id'],
+            format_number(med_forecast),
+            format_number(wmed_forecast),
+        )))
